@@ -1,0 +1,586 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>UMKM Desa Pagojengan</title>
+
+<!-- Font Awesome -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+<style>
+body{
+    margin:0;
+    font-family:Arial, sans-serif;
+    background:#ffffff;
+}
+
+header{
+    background:#d62828;
+    color:white;
+    text-align:center;
+    padding:30px 20px;
+}
+
+.header-content h1{
+    margin:0;
+    font-size:28px;
+}
+
+.header-content p{
+    margin-top:8px;
+    font-size:14px;
+    opacity:0.9;
+}
+
+.container{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+    gap:20px;
+    padding:20px;
+}
+
+.card{
+    background:white;
+    border-radius:12px;
+    box-shadow:0 4px 10px rgba(0,0,0,0.1);
+    padding:15px;
+    text-align:center;
+    transition:0.3s;
+    opacity:0;
+    transform:translateY(20px);
+}
+
+.card.show{
+    opacity:1;
+    transform:translateY(0);
+}
+
+.card img{
+    width:100%;
+    border-radius:10px;
+    height:180px;
+    object-fit:cover;
+}
+
+button{
+    background:#d62828;
+    color:white;
+    border:none;
+    padding:10px 15px;
+    border-radius:8px;
+    cursor:pointer;
+    margin-top:10px;
+}
+
+button:hover{
+    background:#b71c1c;
+}
+
+/* Modal */
+.modal{
+    display:none;
+    position:fixed;
+    z-index:1000;
+    left:0;
+    top:0;
+    width:100%;
+    height:100%;
+    background:rgba(0,0,0,0.6);
+}
+
+.modal-content{
+    background:white;
+    margin:5% auto;
+    padding:20px;
+    width:90%;
+    max-width:600px;
+    border-radius:12px;
+    max-height:85vh;
+    overflow-y:auto;
+}
+
+.close{
+    float:right;
+    font-size:22px;
+    cursor:pointer;
+}
+
+.modal p i{
+    color:#d62828;
+    margin-right:8px;
+}
+
+.menu-item{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    margin:10px 0;
+    border-bottom:1px solid #eee;
+    padding-bottom:10px;
+}
+
+.menu-item img{
+    width:70px;
+    height:70px;
+    border-radius:8px;
+    object-fit:cover;
+}
+
+.btn-wa{
+    display:inline-block;
+    background:#25D366;
+    color:white;
+    padding:10px 15px;
+    border-radius:8px;
+    text-decoration:none;
+    margin-top:10px;
+}
+
+.btn-wa i{
+    margin-right:6px;
+}
+.footer{
+  background:#b30000;
+  color:white;
+  padding:50px 20px 25px;
+  margin-top:60px;
+  text-align:center;
+}
+
+.footer-container{
+  max-width:650px; /* batasi lebar */
+  margin:auto;
+}
+
+.footer-section{
+  margin-bottom:25px;
+}
+
+.footer-section h3{
+  font-size:22px;
+  margin-bottom:10px;
+}
+
+.footer-section h4{
+  margin-bottom:8px;
+}
+
+.footer-section p{
+  font-size:14px;
+  line-height:1.6;
+  margin:4px 0;
+}
+
+.footer i{
+  margin-right:6px;
+}
+
+.footer-bottom{
+  border-top:1px solid rgba(255,255,255,0.3);
+  margin-top:25px;
+  padding-top:15px;
+  font-size:13px;
+}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="header-content">
+    <h1><i class="fa-solid fa-store"></i> UMKM Desa Pagojengan</h1>
+    <p>Mendukung UMKM Lokal Menuju Digitalisasi Desa</p>
+  </div>
+</header>
+
+<div class="container">
+
+<div class="card fade">
+<img src="img/warung1.jpeg">
+<h3>Warung Mbah Naban</h3>
+<button onclick="openModal('mbah')">Lihat Detail</button>
+</div>
+
+<div class="card fade">
+<img src="img/warung2.jpeg">
+<h3>UMKM Dobel G</h3>
+<button onclick="openModal('doubleg')">Lihat Detail</button>
+</div>
+
+<div class="card fade">
+<img src="img/warung3.jpeg">
+<h3>Warung Maisha</h3>
+<button onclick="openModal('maisha')">Lihat Detail</button>
+</div>
+
+<div class="card fade">
+<img src="img/warung4.jpeg">
+<h3>Warung Aishwa</h3>
+<button onclick="openModal('aishwa')">Lihat Detail</button>
+</div>
+
+<div class="card fade">
+<img src="img/warung5.jpeg">
+<h3>WBC RAVINDRA</h3>
+<button onclick="openModal('hendra')">Lihat Detail</button>
+</div>
+
+<div class="card fade">
+<img src="img/warung6.jpeg">
+<h3>Warung Kiara</h3>
+<button onclick="openModal('esteler')">Lihat Detail</button>
+</div>
+
+<div class="card fade">
+<img src="img/warung7.jpeg">
+<h3>UMKM Pak Nurdin</h3>
+<button onclick="openModal('nurdin')">Lihat Detail</button>
+</div>
+
+
+
+</div>
+
+<!-- MODAL -->
+<div id="modal" class="modal">
+<div class="modal-content">
+<span class="close" onclick="closeModal()">&times;</span>
+<div id="modal-body"></div>
+</div>
+</div>
+
+<script>
+const data = {
+mbah: {
+title:"Warung Mbah Naban 3",
+owner:"Mbah Naban",
+alamat:"Dk. Glempang RT 01 RW 02, Pagojengan",
+jam:"08.00 - 20.00",
+wa:"6285800674526",
+menu:[
+{name:"Cireng Kuah / Goreng - Rp 5.000", img:"img/cireng_biasa.png"},
+{name:"Otak-otak Kuah / Goreng - Rp 5.000", img:"img/otak.png"},
+{name:"Aneka Bakso - Rp 5.000", img:"img/bakso.png"},
+{name:"Aneka Sosis - Rp 5.000", img:"img/sosis.png"},
+{name:"Aneka Seblak - Rp 5.000", img:"img/seblak.png"},
+{name:"Kwetiaw Kuah / Goreng - Rp 5.000", img:"img/kwetiaw.png"},
+{name:"Aneka Pisang Krispi - Rp 5.000", img:"img/pisang.png"},
+{name:"Martabak Mini - Rp 5.000", img:"img/martabak.png"},
+{name:"Cireng - Rp 5.000", img:"img/cireng.png"}
+]
+},
+doubleg:{
+title:"UMKM Dobel G",
+owner:"Mba Esti",
+alamat:"Dk. Glempang RT 01 RW 02, Pagojengan",
+jam:"09.00 - 21.00",
+wa:"6282328764635",
+menu:[
+{
+name:"Telur Asin Ori",
+img:"img/telor_asin.png",
+detail:["Rp 4.000 / butir"]
+},
+{
+name:"Telur Asin Asap",
+img:"img/telor_asap.png",
+detail:["Rp 4.500 / butir"]
+},
+{
+name:"Keripik Dage",
+img:"img/keripik_dage.png",
+detail:[
+"250gr - Rp 13.000",
+"500gr - Rp 25.000",
+"1kg - Rp 50.000"
+]
+},
+{
+name:"Opak Serundeng",
+img:"img/opak.png",
+detail:[
+"250gr - Rp 12.000",
+"500gr - Rp 23.000",
+"1kg - Rp 45.000"
+]
+}
+]
+},
+maisha:{
+title:"Warung Maisha",
+owner:"Mba Tri",
+alamat:"Dk. Glempang RT 01 RW 02, Pagojengan",
+jam:"09.00 - 18.00",
+wa:"6282313767800",
+menu:[
+{
+name:"Dimsum Mentai",
+img:"img/dimsum_mentai.png",
+detail:[
+"Isi 4 - Rp 15.000",
+"Isi 6 - Rp 23.000",
+"Isi 8 - Rp 30.000"
+]
+},
+{
+name:"Dimsum Ori Besar",
+img:"img/dimsum_ori.jpg",
+detail:[
+"Isi 4 - Rp 10.000",
+"Isi 10 - Rp 25.000"
+]
+},
+{
+name:"Dimsum Ori Mini",
+img:"img/dimsum_mini.png",
+detail:[
+"Isi 10 - Rp 10.000",
+"Isi 20 - Rp 20.000"
+]
+},
+{
+name:"Salad Buah",
+img:"img/salad.png",
+detail:[
+"150ml - Rp 5.000",
+"300ml - Rp 12.000"
+]
+},
+{
+name:"Gabin Ubi / Tape",
+img:"img/gabin.png",
+detail:[
+"Rp 2.000 / pcs"
+]
+}
+]
+},
+aishwa:{
+title:"Warung Aishwa",
+owner:"Mba Tiwi",
+alamat:"Dk. Glempang RT 02 RW 02, Pagojengan",
+jam:"10.00 - 19.00",
+wa:"6282313786035",
+menu:[
+{
+name:"Paket Nasi",
+img:"img/nasi.png",
+detail:["Rp 8.000 - Rp 10.000"]
+},
+{
+name:"Aneka Mie",
+img:"img/mie.png",
+detail:["Rp 5.000 - Rp 6.000"]
+},
+{
+name:"Aneka Seblak",
+img:"img/aneka_seblak.png",
+detail:["Rp 4.000 - Rp 10.000"]
+},
+{
+name:"Aneka Lauk",
+img:"img/lauk.png",
+detail:["Rp 5.000 - Rp 7.000"]
+},
+{
+name:"Minuman",
+img:"img/minum.png",
+detail:["Rp 1.000 - Rp 5.000"]
+},
+{
+name:"Spicy",
+img:"img/spicy.png",
+detail:["Rp 4.000 - Rp 10.000"]
+},
+{
+name:"Bakso Aci",
+img:"img/bakso_aci.png",
+detail:["Rp 5.000 - Rp 10.000"]
+},
+{
+name:"Camilan",
+img:"img/cemilan.png",
+detail:["Rp 1.000"]
+},
+{
+name:"Cemilan Berat",
+img:"img/cemilan_berat.png",
+detail:["Rp 1.500 - Rp 7.000"]
+}
+]
+},
+hendra:{
+title:"WBC RAVINDRA",
+owner:"Mas Hendra",
+alamat:"Dk. Glempang RT 02 RW 02, Pagojengan",
+jam:"10.00 - 23.00",
+wa:"6287882593676",
+menu:[
+{
+name:"Seblak Prasmanan",
+img:"img/seblak.jpg",
+detail:["Rp 1.000 - Rp 5.000"]
+},
+{
+name:"Piscok",
+img:"img/piscok.jpg",
+detail:["Rp 1.000"]
+},
+{
+name:"Goreng-goreng",
+img:"img/goreng.png",
+detail:["Rp 2.000"]
+},
+{
+name:"Telor Gulung",
+img:"img/telor_gulung.jpg",
+detail:["Rp 1.000"]
+},
+{
+name:"Batagor",
+img:"img/batagor.jpg",
+detail:["Rp 5.000"]
+},
+{
+name:"Minuman",
+img:"img/es.png",
+detail:["Rp 1.000 - Rp 5.000"]
+}
+]
+},
+esteler:{
+title:"Warung Kiara",
+owner:"-",
+alamat:"Dk. Glempang RT 05 RW 02, Pagojengan",
+jam:"11.00 - 20.00",
+wa:"6281226960107",
+menu:[
+{
+name:"Es Teler Creamy",
+img:"img/esteler.jpg",
+detail:["Rp 5.000"]
+},
+{
+name:"Es Jagung Lumer",
+img:"img/jagung.jpg",
+detail:["Rp 5.000"]
+},
+{
+name:"Es Buah",
+img:"img/esbuah.jpg",
+detail:["Rp 5.000"]
+},
+{
+name:"Es Kuwut",
+img:"img/kuwut.jpg",
+detail:["Rp 5.000"]
+},
+{
+name:"Aneka Cemilan",
+img:"img/camilan.png",
+detail:["Rp 2.500 - Rp 5.000"]
+}
+]
+},
+nurdin:{
+title:"UMKM Pak Nurdin",
+owner:"Pak Nurdin",
+alamat:"Dk. Glempang RT 05 RW 02, Pagojengan",
+jam:"08.00 - 17.00",
+wa:"6282338897391",
+menu:[
+{
+name:"Mie Konyol",
+img:"img/mikonyol.jpeg",
+detail:[
+"16 ons - Rp 27.000",
+"17 ons - Rp 28.000",
+"2 kg - Rp 34.000"
+]
+}
+]
+},
+
+};
+
+function openModal(key){
+let d=data[key];
+let html=`
+<h3>${d.title}</h3>
+<p><i class="fa-solid fa-user"></i> Owner: ${d.owner}</p>
+<p><i class="fa-solid fa-location-dot"></i> ${d.alamat}</p>
+<p><i class="fa-solid fa-clock"></i> ${d.jam}</p>
+<hr>
+`;
+d.menu.forEach(m=>{
+html+=`
+<div class="menu-item">
+<img src="${m.img}">
+<div>
+<strong style="display:block;margin-bottom:4px;">
+${m.name}
+</strong>
+
+${m.detail ? m.detail.map(item=>`
+<div style="font-size:14px;color:#d62828;">
+${item}
+</div>
+`).join("") : ""}
+
+</div>
+</div>
+`;
+});
+html+=`<a class="btn-wa" target="_blank" href="https://wa.me/${d.wa}">
+<i class="fa-brands fa-whatsapp"></i> Pesan di WhatsApp
+</a>`;
+document.getElementById("modal-body").innerHTML=html;
+document.getElementById("modal").style.display="block";
+}
+
+function closeModal(){
+document.getElementById("modal").style.display="none";
+}
+
+const cards=document.querySelectorAll(".card");
+const observer=new IntersectionObserver(entries=>{
+entries.forEach(entry=>{
+if(entry.isIntersecting){
+entry.target.classList.add("show");
+}
+});
+});
+cards.forEach(card=>observer.observe(card));
+</script>
+<footer class="footer">
+  <div class="footer-container">
+    
+    <div class="footer-section">
+      <h3><i class="fa-solid fa-store"></i> UMKM Desa Pagojengan</h3>
+      <p>Mendukung dan mempromosikan UMKM lokal agar lebih dikenal luas.</p>
+    </div>
+
+    <div class="footer-section">
+      <h4><i class="fa-solid fa-location-dot"></i> Alamat</h4>
+      <p>Desa Pagojengan</p>
+      <p>Kecamatan Paguyangan</p>
+    </div>
+
+    <div class="footer-section">
+      <h4><i class="fa-solid fa-phone"></i> Kontak</h4>
+      <p>Hubungi masing-masing warung melalui tombol WhatsApp</p>
+    </div>
+
+    <div class="footer-section">
+      <h4><i class="fa-solid fa-graduation-cap"></i> Program</h4>
+      <p>Website UMKM Desa Pagojengan 2026</p>
+    </div>
+
+  </div>
+
+  <div class="footer-bottom">
+    © 2026 UMKM Desa Pagojengan | Dibuat oleh Tim KKN 12 Universitas Peradaban
+  </div>
+</footer>
+</body>
+</html>
